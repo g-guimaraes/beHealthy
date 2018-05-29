@@ -29,7 +29,7 @@ export default class Regform extends React.Component {
 const styles = StyleSheet.create({
   regform: {
     flex: 1,
-    backgroundColor: '#36485f',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     
