@@ -2,50 +2,32 @@ import React from 'react';
 import { StyleSheet, Text, View} from 'react-native';
 import Expo from 'expo';
 import {createStackNavigator} from 'react-navigation';
+import Regform from'./components/Regform'
 
-
-class HomeScreen extends React.Component{
+class Login extends React.Component{
   static navigationOptions = {
-    title: 'Home',
+    title: 'Login',
 
   };
   render(){
     const{ navigate } = this.props.navigation;
     return(
-      <View>
+      <View style={styles.container}>
         <Text
-        onPress= { ()=> navigate('Profile') }> Navigate to Profile
+        onPress= { ()=> navigate('Regform') }> Navigate to Regform
         </Text>
       </View>
     );
   }
 }
-
-class ProfileScreen extends React.Component{
-  static navigationOptions = {
-    title: 'Profile',
-
-  };
-  render(){
-    const{ navigate } = this.props.navigation;
-    return(
-      <View>
-        <Text
-        onPress= { ()=> navigate('Home') }> Navigate to Profile
-        </Text>
-      </View>
-    );
-  }
-}
-
 
 const Navigationapp = createStackNavigator({
-  Home: { screen: HomeScreen },
-  Profile: {screen:ProfileScreen},
+  Login: { screen:Login},
+  Regform: {screen:Regform},
 },  {
     navigationOptions:{
       headerStyle: {
-       marginTop: Expo.Constants.statusBarHeight
+        backgroundColor: 'red'
       }
     }
   }
@@ -63,5 +45,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+
   },
 });
