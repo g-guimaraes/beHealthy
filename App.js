@@ -17,11 +17,8 @@ const Navigationapp = createStackNavigator({
   Regform: {screen:Regform},
 },  {
     navigationOptions:{
-      header:false,
-      headerStyle: {
-        
-        backgroundColor: 'red'
-      }
+      title:'BeeHealthy',
+     header:false,
     }
   }
 );

@@ -10,7 +10,7 @@ import { StyleSheet,
     
 export default class Regform extends React.Component {
     static navigationOptions = {
-        title: 'Regform',
+        
     
       };
     render() {
