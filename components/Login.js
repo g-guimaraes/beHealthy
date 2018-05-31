@@ -9,8 +9,8 @@ import { StyleSheet,
     AsyncStorage,
     } from 'react-native';
 import {createStackNavigator} from 'react-navigation';
-import { METHODS } from 'http';
-const fetch = require('cross-fetch');
+
+
 export default class Login extends React.Component {
         static navigationOptions = {
             header:null,
@@ -19,7 +19,7 @@ export default class Login extends React.Component {
         constructor(props){
             super(props);
             this.state={
-                usuario: '',
+                user: '',
                 senha: '',
             }
         }
@@ -28,7 +28,7 @@ export default class Login extends React.Component {
         }
 
         _loadInitialState =async () =>{
-            var value = await AsyncStorage.getItem('usuario');
+            var value = await AsyncStorage.getItem('user');
             if (value !== null) {
                 this.props.navigation.navigate(profile)
             }
@@ -41,8 +41,8 @@ export default class Login extends React.Component {
 
                 <Text style={styles.header}> LOGIN </Text>
                 <TextInput 
-                    style={styles.textInput} placeholder='Usuario' 
-                    onChangeText={(usuario) => this.setState({usuario})}
+                    style={styles.textInput} placeholder='user' 
+                    onChangeText={(user) => this.setState({user})}
                     underlineColorAndroid='transparent'
                 />
                 <TextInput 
@@ -61,22 +61,25 @@ export default class Login extends React.Component {
         </KeyboardAvoidingView>
         );   
       }
+      
       login = () => {
-          fetch('https://192.168.0.104:3000/users',{
+        
+        fetch('https://192.168.0.104:3000/users',{
             method:'POST',
             headers:{
                 'Accept':'application/json',
                 'content-Type':'application/json'
             }, 
             body: JSON.stringify({
-                usuario: this.state.usuario,
+                user: this.state.user,
                 senha: this.state.senha,
             })
       })
       .then((response) => response.json() )
       .then((res) =>{
+          alert(res.message);
           if(res.success === true){
-              AsyncStorage.setItem('usuario',res.usuario);
+              AsyncStorage.setItem('user',res.user);
               thys.prpos.navigation.navigate('Profile');
           }
           else{

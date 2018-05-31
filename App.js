@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { StyleSheet,
   Text,
@@ -9,6 +10,7 @@ import { StyleSheet,
 import {createStackNavigator} from 'react-navigation';
 import Login from'./components/Login';
 import Regform from'./components/Regform';
+import Profile from'./components/Profile';
 
 
 
