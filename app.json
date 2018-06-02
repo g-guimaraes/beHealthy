@@ -1,5 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "name": "BeeHealthy",
+    "icon": "./logo.png",
+    "version": "0.0.1",
+    "slug": "beehealthy",
+    "sdkVersion": "27.0.0",
+    "ios": {
+      "bundleIdentifier": "com.beehealthy"
+    },
+    "android": {
+      "package": "com.beehealthy"
+    }
   }
 }

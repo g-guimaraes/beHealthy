@@ -9,20 +9,14 @@ import { StyleSheet,
     AsyncStorage,
     } from 'react-native';
 import {createStackNavigator} from 'react-navigation';
-
+import { Facebook } from 'expo'
 
 export default class Login extends React.Component {
         static navigationOptions = {
             header:null,
         
           };
-        constructor(props){
-            super(props);
-            this.state={
-                user: '',
-                senha: '',
-            }
-        }
+
         componentDidMount(){
             this._loadInitialState().done();
         }
@@ -30,7 +24,7 @@ export default class Login extends React.Component {
         _loadInitialState =async () =>{
             var value = await AsyncStorage.getItem('user');
             if (value !== null) {
-                this.props.navigation.navigate(profile)
+                //this.props.navigation.navigate(profile)
             }
         }
         render() {
@@ -40,16 +34,6 @@ export default class Login extends React.Component {
             <View style={styles.container}>
 
                 <Text style={styles.header}> LOGIN </Text>
-                <TextInput 
-                    style={styles.textInput} placeholder='user' 
-                    onChangeText={(user) => this.setState({user})}
-                    underlineColorAndroid='transparent'
-                />
-                <TextInput 
-                    style={styles.textInput} placeholder='Senha' 
-                    onChangeText={(senha) => this.setState({senha})}
-                    underlineColorAndroid='transparent'
-                />
                 <TouchableOpacity
                     style={styles.btn}
                     onPress={this.login}>
@@ -62,35 +46,20 @@ export default class Login extends React.Component {
         );   
       }
       
-      login = () => {
-        
-        fetch('https://192.168.0.104:3000/users',{
-            method:'POST',
-            headers:{
-                'Accept':'application/json',
-                'content-Type':'application/json'
-            }, 
-            body: JSON.stringify({
-                user: this.state.user,
-                senha: this.state.senha,
-            })
-      })
-      .then((response) => response.json() )
-      .then((res) =>{
-          alert(res.message);
-          if(res.success === true){
-              AsyncStorage.setItem('user',res.user);
-              thys.prpos.navigation.navigate('Profile');
-          }
-          else{
-              alert(res.message);
-          }
-      })
-      .done();
-
-
-      };
+      login = async () => {
+        const { type, token } = await Facebook.logInWithReadPermissionsAsync('1295079360636362', { permissions: ['public_profile']})
+    
+        if(type === 'success'){
+            const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`)
+            const data = await response.json()
+            const res = JSON.stringify(data)
+            alert(res)
+            AsyncStorage.setItem('user', res);
+            this.props.navigation.navigate('Profile');
+        }
     }
+}
+
 const styles = StyleSheet.create({
     wrapper:{
         flex:1,
